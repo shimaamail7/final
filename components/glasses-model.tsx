@@ -19,6 +19,14 @@ const ease = (x: number) => -(Math.cos(Math.PI * x) - 1) / 2;
 
 function Model({ groupRef }: { groupRef: React.RefObject<THREE.Group> }) {
   const { scene } = useGLTF(MODEL_URL);
+  const [scale, setScale] = React.useState(0.45);
+
+  useLayoutEffect(() => {
+    const handleResize = () => setScale(window.innerWidth < 768 ? 0.25 : 0.45);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useLayoutEffect(() => {
     scene.traverse((child: any) => {
@@ -57,7 +65,7 @@ function Model({ groupRef }: { groupRef: React.RefObject<THREE.Group> }) {
   return (
     <group ref={groupRef} dispose={null}>
       <Center>
-        <primitive object={scene} scale={0.45} />
+        <primitive object={scene} scale={scale} />
       </Center>
     </group>
   );
@@ -72,7 +80,7 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
 
   // Target values that GSAP will update based on scroll
   const target = useRef({
-    px: -7, py: 1, pz: -3,
+    px: -7, py: 1.5, pz: -3,
     rx: 0.4, ry: 0.7, rz: 0,
   });
 
@@ -124,9 +132,15 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
 
     if (!isVisible) return;
 
+    const isMobile = window.innerWidth < 768;
+    const philoPx = isMobile ? -.5 : -1.2;
+    const philoPy = isMobile ? -.5 : 0;
+    const innovPx = isMobile ? 0.5 : -1;
+    const innovPy = isMobile ? 0 : 0;
+
     // 1. Animate model in from left to center
     gsap.to(target.current, {
-      px: -1.2, py: 0, pz: 1,
+      px: philoPx, py: philoPy, pz: 1,
       rx: 0, ry: 0.9, rz: 0,
       duration: 2.5,
       ease: "power3.inOut",
@@ -166,8 +180,8 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
 
           // Resting Philosophy (0 -> 0.1)
           if (p < 0.1) {
-            target.current.px = -1.2;
-            target.current.py = 0;
+            target.current.px = philoPx;
+            target.current.py = philoPy;
             target.current.pz = 1;
             target.current.rx = 0;
             target.current.ry = 0.9;
@@ -175,8 +189,8 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
           // Segment 1: Philosophy -> Craft (0.1 -> 0.4)
           else if (p < 0.4) {
             const t = ease((p - 0.1) / 0.3);
-            target.current.px = lerp(-1.2, 0, t);
-            target.current.py = lerp(0, -0.9, t);
+            target.current.px = lerp(philoPx, 0, t);
+            target.current.py = lerp(philoPy, -0.8, t);
             target.current.pz = lerp(1, 0.5, t);
             target.current.rx = lerp(0, 0.2, t);
             target.current.ry = lerp(0.9, Math.PI * 2, t);
@@ -192,16 +206,16 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
           // Segment 2: Craft -> Innovation (0.6 -> 0.9)
           else if (p < 0.9) {
             const t = ease((p - 0.6) / 0.3);
-            target.current.px = lerp(0, -1, t);
-            target.current.py = lerp(-0.9, 0, t);
+            target.current.px = lerp(0, innovPx, t);
+            target.current.py = lerp(-0.9, innovPy, t);
             target.current.pz = lerp(0.5, 1, t);
             target.current.rx = lerp(0.2, 0.2, t);
             target.current.ry = lerp(Math.PI * 2, Math.PI * 3.8, t);
           }
           // Resting Innovation (0.9 -> 1.0)
           else {
-            target.current.px = -1;
-            target.current.py = 0;
+            target.current.px = innovPx;
+            target.current.py = innovPy;
             target.current.pz = 1;
             target.current.rx = 0.2;
             target.current.ry = Math.PI * 3.8;

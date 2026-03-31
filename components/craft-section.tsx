@@ -11,11 +11,11 @@ export function CraftSection() {
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center p-6">
         {/* Center text content */}
         <div className="relative z-20 flex w-full flex-col items-center justify-center text-center">
-          {/* Serif title — "Precision Crafted" */}
+          {/* Sans title matching other sections */}
           <h2
-            className="gs-scene-2-title gs-dynamic-text mb-6 font-serif text-4xl font-normal tracking-tight md:text-5xl lg:text-6xl"
+            className="gs-scene-2-title gs-dynamic-text mb-6 font-sans text-4xl font-black uppercase tracking-tight md:text-5xl lg:text-6xl"
             style={{
-              fontWeight: 400,
+              fontWeight: 900,
               letterSpacing: "-0.01em",
               lineHeight: 1.1,
               color: "#1a1a2e",

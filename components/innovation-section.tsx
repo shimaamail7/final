@@ -4,7 +4,7 @@ export function InnovationSection() {
   return (
     <section
       id="innovation"
-      className="relative flex min-h-screen items-center justify-center"
+      className="relative flex min-h-screen items-start md:items-center justify-center"
       style={{ backgroundColor: "transparent" }}
     >
       {/* 
@@ -12,9 +12,9 @@ export function InnovationSection() {
       */}
       {/*
         Layout: model occupies the left ~55%, text block is right-aligned to the right ~45%.
-        On mobile: stacked, text below.
+        On mobile: stacked, text at top.
       */}
-      <div className="relative z-20 ml-auto flex w-full flex-col items-center px-6 md:w-1/2 md:items-end md:pr-16 lg:pr-24">
+      <div className="relative z-20 h-[95vh] md:min-h-auto ml-auto flex w-full flex-col items-center justify-between md:justify-center pt-[20vh] pb-10 px-6 md:w-1/2 md:items-end md:justify-center md:pt-0 md:pb-0 md:pr-16 lg:pr-24">
 
         {/* TIMELESS headline */}
         <h2
@@ -29,52 +29,53 @@ export function InnovationSection() {
         >
           TIMELESS
         </h2>
+        <div className="flex flex-col items-start md:items-end">
 
-        {/* Sub-headline */}
-        <p
-          className="gs-scene-3-sub gs-dynamic-text-light mb-6 font-sans text-xs font-medium uppercase tracking-widest md:text-sm"
-          style={{
-            color: "#e5e7eb",
-            letterSpacing: "0.25em",
-            textAlign: "right",
-          }}
-        >
-          Classic Meets Modern
-        </p>
+          {/* Sub-headline */}
+          <p
+            className="gs-scene-3-sub gs-dynamic-text-light mb-6 font-sans text-xs font-medium uppercase tracking-widest md:text-sm"
+            style={{
+              color: "#e5e7eb",
+              letterSpacing: "0.25em",
+              textAlign: "right",
+            }}
+          >
+            Classic Meets Modern
+          </p>
 
-        {/* Body */}
-        <p
-          className="gs-scene-3-p gs-dynamic-text-light mb-10 font-sans text-sm leading-relaxed"
-          style={{
-            maxWidth: "40ch",
-            color: "#9ca3af",
-            lineHeight: 1.75,
-            textAlign: "right",
-          }}
-        >
-          Stand out in any crowd. Engineered for those who define the standard,
-          never follow it — where optical precision meets iconic design heritage.
-        </p>
+          {/* Body */}
+          <p
+            className="gs-scene-3-p gs-dynamic-text-light mb-10 font-sans  text-sm leading-relaxed"
+            style={{
+              maxWidth: "40ch",
+              color: "#9ca3af",
+              lineHeight: 1.75,
+              textAlign: "left",
+            }}
+          >
+            Stand out in any crowd. Engineered for those who define the standard,
+            never follow it — where optical precision meets iconic design heritage.
+          </p>
 
-        {/* CTA button — pill shaped, white bg, black text */}
-        <button
-          className="gs-scene-3-btn group font-sans text-xs font-bold uppercase tracking-widest transition-transform duration-200 hover:scale-105 active:scale-95"
-          style={{
-            backgroundColor: "#ffffff",
-            color: "#000000",
-            border: "none",
-            borderRadius: "9999px",
-            padding: "14px 36px",
-            letterSpacing: "0.15em",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            const el = document.getElementById("innovation")
-            el?.scrollIntoView({ behavior: "smooth" })
-          }}
-        >
-          Start Experience
-        </button>
+          {/* CTA button — pill shaped, white bg, black text */}
+          <button
+            className="gs-scene-3-btn group font-sans text-xs font-bold uppercase tracking-widest transition-transform duration-200 hover:scale-105 active:scale-95"
+            style={{
+              backgroundColor: "#ffffff",
+              color: "#000000",
+              border: "none",
+              borderRadius: "9999px",
+              padding: "14px 36px",
+              letterSpacing: "0.15em",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              const el = document.getElementById("innovation")
+              el?.scrollIntoView({ behavior: "smooth" })
+            }}
+          >
+            Start Experience
+          </button></div>
       </div>
     </section>
   )

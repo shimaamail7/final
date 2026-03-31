@@ -6,7 +6,7 @@ const SUBTITLE_TEXT = "UNLEASH YOUR STYLE"
 
 export function PhilosophySection() {
   return (
-    <section className="relative flex min-h-screen items-center bg-transparent">
+    <section className="relative flex min-h-screen items-start md:items-center bg-transparent">
       {/* 
         The background gradient is now gracefully handled globally in page.tsx 
         to allow seamless crossfading between sections via GSAP.
@@ -16,7 +16,7 @@ export function PhilosophySection() {
         Content panel — right half, z-20 so the 3D canvas (z-30) overlaps.
         Model occupies the left ~55% via 3D positioning.
       */}
-      <div className="relative z-20 ml-auto flex w-full flex-col items-center justify-center px-8 py-20 text-center md:w-[48%] md:items-center md:px-12 lg:px-16">
+      <div className="relative z-20 ml-auto flex w-full flex-col items-center justify-start pt-[25vh] px-8 pb-10 text-center md:w-[48%] md:justify-center md:py-20 md:pt-20 md:px-12 lg:px-16">
 
         {/* VISIONARY headline */}
         <h2

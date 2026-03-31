@@ -2,39 +2,21 @@
 
 import { useState, useEffect, useCallback } from "react"
 import dynamic from "next/dynamic"
-import { LenisProvider, useLenis } from "@/lib/lenis-context"
+import { SnapScrollProvider } from "@/lib/snap-scroll-context"
 import { Loader } from "@/components/loader"
 
 import { PhilosophySection } from "@/components/philosophy-section"
 import { CraftSection } from "@/components/craft-section"
 import { InnovationSection } from "@/components/innovation-section"
-import { FixedHeader } from "@/components/fixed-header"
-import { LeftSidebar } from "@/components/left-sidebar"
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation"
+import { Logo } from "@/components/logo"
 
 const GlassesCanvas = dynamic(
   () => import("@/components/glasses-model").then((mod) => mod.GlassesCanvas),
   { ssr: false }
 )
 
-const SECTIONS = [
-  { id: "philosophy", number: "01", label: "Philosophy" },
-  { id: "craft", number: "02", label: "Craft" },
-  { id: "innovation", number: "03", label: "Innovation" },
-]
-
 function MainContent({ isReady }: { isReady: boolean }) {
-  const { lenis } = useLenis()
-
-  const handleNavigate = useCallback((sectionId: string) => {
-    const el = document.getElementById(sectionId)
-    if (el && lenis) {
-      lenis.scrollTo(el, { offset: 0, duration: 1.2 })
-    } else if (el) {
-      el.scrollIntoView({ behavior: "smooth" })
-    }
-  }, [lenis])
-
   return (
     <main id="main-scroll-container" style={{ backgroundColor: "#000000" }}>
       {/* Global black gradient for Philosophy and Innovation */}
@@ -60,20 +42,19 @@ function MainContent({ isReady }: { isReady: boolean }) {
           firstColor="180, 100, 255"
           secondColor="255, 120, 80"
           thirdColor="180, 100, 255"
-          forthColor="180, 100, 255"
+          fourthColor="180, 100, 255"
           pointerColor="140, 100, 255"
           blendingValue="hard-light"
           interactive={false}
         />
       </div>
 
-      <FixedHeader isDark={true} />
-
-      <LeftSidebar
-        sections={SECTIONS}
-        isVisible={true}
-        onNavigate={handleNavigate}
-      />
+      {/* Logo */}
+      <div className="fixed top-8 left-6 z-50 md:left-10 lg:left-16 pointer-events-auto">
+        <a href="/" aria-label="Home">
+          <Logo className="w-20 md:w-28 gs-dynamic-text" fill="currentColor" />
+        </a>
+      </div>
 
       {/* ── Philosophy ────────────────────────────────────────────────────── */}
       <div className="relative" id="philosophy">
@@ -104,6 +85,7 @@ function MainContent({ isReady }: { isReady: boolean }) {
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [showContent, setShowContent] = useState(false)
+  const [isScrollLocked, setIsScrollLocked] = useState(true)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -119,24 +101,22 @@ export default function Home() {
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false)
-    setTimeout(() => setShowContent(true), 100)
+    setTimeout(() => {
+      setShowContent(true)
+      // Lock scroll mechanism until the introductory 3D and text animations complete (~4.2s)
+      setTimeout(() => setIsScrollLocked(false), 4200)
+    }, 100)
   }, [])
 
   return (
     <>
       {isLoading && <Loader onComplete={handleLoadingComplete} />}
 
-      <LenisProvider
-        options={{
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-        }}
-      >
+      <SnapScrollProvider stageCount={3} locked={isScrollLocked}>
         <div className={`transition-opacity duration-500 ${showContent ? "opacity-100" : "opacity-0"}`}>
           <MainContent isReady={showContent} />
         </div>
-      </LenisProvider>
+      </SnapScrollProvider>
     </>
   )
 }

@@ -1,7 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import gsap from "gsap"
+import { useRef } from "react"
 
 interface Section {
   id: string
@@ -23,31 +22,6 @@ export function LeftSidebar({
   onNavigate,
 }: LeftSidebarProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const lineRef = useRef<HTMLDivElement>(null)
-  const lineAnimated = useRef(false)
-
-  // Line is always gray - never highlighted
-  const lineColor = "#555555"
-
-  // Animate the continuous vertical line on mount
-  useEffect(() => {
-    if (!lineRef.current || !isVisible || lineAnimated.current) return
-
-    // GSAP fromTo animation for drawing effect
-    gsap.fromTo(
-      lineRef.current,
-      { scaleY: 0, transformOrigin: "top center" },
-      {
-        scaleY: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        delay: 0.3,
-        onComplete: () => {
-          lineAnimated.current = true
-        },
-      }
-    )
-  }, [isVisible])
 
   // Handle click to navigate
   const handleClick = (sectionId: string) => {
@@ -65,7 +39,7 @@ export function LeftSidebar({
   return (
     <div
       ref={containerRef}
-      className={`fixed left-6 z-40 md:left-10 lg:left-16 ${className}`}
+      className={`fixed hidden lg:block left-6 z-40 md:left-10 lg:left-16 ${className}`}
       style={{
         top: "80px", // Below header
         bottom: "40px", // Above footer area
@@ -74,21 +48,6 @@ export function LeftSidebar({
         pointerEvents: isVisible ? "auto" : "none",
       }}
     >
-      {/* Single continuous vertical line - always gray, never highlighted */}
-      <div
-        ref={lineRef}
-        className="absolute left-0 top-0"
-        style={{
-          width: "1px",
-          height: "100%",
-          backgroundColor: lineColor,
-          transform: "scaleY(0) translateZ(0)",
-          transformOrigin: "top center",
-          willChange: "transform",
-        }}
-        aria-hidden="true"
-      />
-
       {/* Navigation items - Philosophy at top, Craft centered, Innovation at bottom */}
       <nav
         className="relative ml-6 flex h-full flex-col justify-between"
