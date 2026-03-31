@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 
-const SUBTITLE_TEXT = "UNLEASH YOUR STYLE"
 
 export function PhilosophySection() {
   return (
@@ -16,9 +15,16 @@ export function PhilosophySection() {
         Content panel — right half, z-20 so the 3D canvas (z-30) overlaps.
         Model occupies the left ~55% via 3D positioning.
       */}
-      <div className="relative z-20 ml-auto flex w-full flex-col items-center justify-start pt-[25vh] px-8 pb-10 text-center md:w-[48%] md:justify-center md:py-20 md:pt-20 md:px-12 lg:px-16">
+      <div className="relative z-20 ml-auto flex w-full max-w-sm flex-col items-center justify-start pt-[25vh] px-8 pb-10 text-center mr-10
+      md:max-w-xl md:justify-center md:py-20 md:pt-20 md:px-12 lg:px-5">
 
-        {/* VISIONARY headline */}
+
+        <p
+          className="gs-scene-1-title gs-dynamic-text self-start font-sans uppercase text-white/50 mb-1"
+          style={{ fontWeight: 500, fontSize: "clamp(0.65rem, 1.2vw, 0.85rem)", letterSpacing: "0.3em" }}
+        >
+          PHILOSOPHY
+        </p>
         <h2
           className="gs-scene-1-title gs-dynamic-text mb-3 font-sans font-black uppercase text-white"
           style={{
@@ -32,14 +38,7 @@ export function PhilosophySection() {
         </h2>
 
         {/* Subtitle — below VISIONARY */}
-        <div className="gs-scene-1-sub mb-5">
-          <span
-            className="gs-dynamic-text-light font-sans uppercase tracking-[0.3em] text-white/60"
-            style={{ fontWeight: 400, fontSize: "clamp(0.65rem, 1.2vw, 0.85rem)" }}
-          >
-            {SUBTITLE_TEXT}
-          </span>
-        </div>
+
 
         {/* Description */}
         <p
@@ -62,6 +61,6 @@ export function PhilosophySection() {
           SCROLL
         </span>
       </div>
-    </section>
+    </section >
   )
 }

@@ -11,7 +11,15 @@ export function CraftSection() {
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center p-6">
         {/* Center text content */}
         <div className="relative z-20 flex w-full flex-col items-center justify-center text-center">
-          {/* Sans title matching other sections */}
+
+          <div className="mb-5">
+            <span
+              className="gs-scene-2-title gs-dynamic-text-light font-sans uppercase tracking-[0.3em]"
+              style={{ fontWeight: 500, fontSize: "clamp(0.65rem, 1.2vw, 0.85rem)", color: "#1a1a2e" }}
+            >
+              CRAFT
+            </span>
+          </div>
           <h2
             className="gs-scene-2-title gs-dynamic-text mb-6 font-sans text-4xl font-black uppercase tracking-tight md:text-5xl lg:text-6xl"
             style={{
