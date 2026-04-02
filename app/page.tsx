@@ -101,16 +101,19 @@ export default function Home() {
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false)
-    setTimeout(() => {
-      setShowContent(true)
-      // Lock scroll mechanism until the introductory 3D and text animations complete (~4.2s)
-      setTimeout(() => setIsScrollLocked(false), 4200)
-    }, 100)
+  }, [])
+
+  const handleReady = useCallback(() => {
+    setShowContent(true)
+    // On mobile the intro animations are shorter (1.2s model + 1.4s delay + 0.7s text = ~2.2s)
+    // On desktop they run longer (2.5s + 3.0s = ~4.2s)
+    const lockDuration = window.innerWidth < 768 ? 2400 : 4200
+    setTimeout(() => setIsScrollLocked(false), lockDuration)
   }, [])
 
   return (
     <>
-      {isLoading && <Loader onComplete={handleLoadingComplete} />}
+      {isLoading && <Loader onComplete={handleLoadingComplete} onReady={handleReady} />}
 
       <SnapScrollProvider stageCount={3} locked={isScrollLocked}>
         <div className={`transition-opacity duration-500 ${showContent ? "opacity-100" : "opacity-0"}`}>

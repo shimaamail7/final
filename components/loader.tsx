@@ -6,10 +6,11 @@ import { Logo } from "./logo"
 
 interface LoaderProps {
   onComplete: () => void
+  onReady?: () => void
   minimumDuration?: number
 }
 
-export function Loader({ onComplete, minimumDuration = 2000 }: LoaderProps) {
+export function Loader({ onComplete, onReady, minimumDuration = 2000 }: LoaderProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<SVGSVGElement>(null)
   const progressBarRef = useRef<HTMLDivElement>(null)
@@ -17,6 +18,7 @@ export function Loader({ onComplete, minimumDuration = 2000 }: LoaderProps) {
   const [progress, setProgress] = useState(0)
   const timelineRef = useRef<gsap.core.Timeline | null>(null)
   const hasCompletedRef = useRef(false)
+  const onReadyFiredRef = useRef(false)
 
   const triggerExit = useCallback(() => {
     if (hasCompletedRef.current) return
@@ -92,6 +94,11 @@ export function Loader({ onComplete, minimumDuration = 2000 }: LoaderProps) {
       onUpdate: function () {
         const currentProgress = Math.round(this.targets()[0].value)
         setProgress(currentProgress)
+
+        if (currentProgress >= 95 && onReady && !onReadyFiredRef.current) {
+          onReadyFiredRef.current = true
+          onReady()
+        }
 
         if (progressFillRef.current) {
           gsap.set(progressFillRef.current, {

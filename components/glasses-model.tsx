@@ -9,7 +9,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const MODEL_URL = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AkshtaS%20spetcs2-9XesCjPB3jHEk5VAqWxmm0HG5g6HJn.glb";
+const MODEL_URL = "/AkshtaS%20spetcs2.glb";
+
+// Start fetching the model as soon as the JS module loads (before the
+// component even mounts inside the Canvas) — removes the model download
+// from the blocking critical path.
+useGLTF.preload(MODEL_URL);
 
 // Smooth lerp helper
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -115,7 +120,7 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
 
     // Initial states for Philosophy texts (hidden left)
     gsap.set('.gs-scene-1-title', { opacity: 0, x: -50 });
-    gsap.set('.gs-scene-1-sub', { opacity: 0, x: -50 });
+
     gsap.set('.gs-scene-1-p', { opacity: 0, x: -50 });
     gsap.set('.gs-scene-1-scroll', { opacity: 0, y: 50 });
 
@@ -126,9 +131,7 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
     gsap.set('.gs-scene-3-sub', { opacity: 0, y: 50 });
     gsap.set('.gs-scene-3-p', { opacity: 0, y: 50 });
 
-    gsap.set('.gs-nav-1', { opacity: 1 });
-    gsap.set('.gs-nav-2', { opacity: 0.3 });
-    gsap.set('.gs-nav-3', { opacity: 0.3 });
+
 
     if (!isVisible) return;
 
@@ -139,27 +142,31 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
     const innovPy = isMobile ? 0 : 0;
 
     // 1. Animate model in from left to center
+    // Mobile: shorter duration so the experience feels instant
+    const introDuration = isMobile ? 1.2 : 2.5;
+    const textDelay = isMobile ? 1.4 : 3.0;
+    const textDuration = isMobile ? 0.7 : 1.2;
+
     gsap.to(target.current, {
       px: philoPx, py: philoPy, pz: 1,
       rx: 0, ry: 0.9, rz: 0,
-      duration: 2.5,
+      duration: introDuration,
       ease: "power3.inOut",
       onComplete: () => { introDone.current = true; }
     });
 
-    // 2. Animate texts in from left to center
-    // Delay is increased so the model finishes moving first
-    gsap.to(['.gs-scene-1-title', '.gs-scene-1-sub', '.gs-scene-1-p'], {
+    // 2. Animate texts in — delay is tuned per device so text arrives right as model settles
+    gsap.to(['.gs-scene-1-title', '.gs-scene-1-p'], {
       opacity: 1, x: 0,
-      duration: 1.2,
-      stagger: 0.15,
+      duration: textDuration,
+      stagger: 0.12,
       ease: "power3.out",
-      delay: 3.0
+      delay: textDelay
     });
     gsap.to('.gs-scene-1-scroll', {
       opacity: 0.6, y: 0,
-      duration: 1,
-      delay: 3.0,
+      duration: textDuration,
+      delay: textDelay,
       ease: "power3.out"
     });
 
@@ -225,7 +232,7 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
     });
 
     // Philosophy fade out (0.05 to 0.2)
-    tl.to(['.gs-scene-1-title', '.gs-scene-1-sub', '.gs-scene-1-p', '.gs-scene-1-scroll'],
+    tl.to(['.gs-scene-1-title', '.gs-scene-1-p', '.gs-scene-1-scroll'],
       { opacity: 0, y: -30, stagger: 0.03, duration: 0.15, ease: 'power2.in' }, 0.05);
 
     // Craft fade in (0.35 to 0.5)
@@ -240,11 +247,7 @@ function Scene({ isVisible }: { isVisible?: boolean }) {
     tl.to(['.gs-scene-3-title', '.gs-scene-3-sub', '.gs-scene-3-p', '.gs-scene-3-btn'],
       { opacity: 1, y: 0, stagger: 0.03, duration: 0.09, ease: 'expo.out' }, 0.91);
 
-    // Nav
-    tl.to('.gs-nav-1', { opacity: 0.3, duration: 0.1, ease: 'none' }, 0.1);
-    tl.to('.gs-nav-2', { opacity: 1, duration: 0.1, ease: 'none' }, 0.4);
-    tl.to('.gs-nav-2', { opacity: 0.3, duration: 0.1, ease: 'none' }, 0.6);
-    tl.to('.gs-nav-3', { opacity: 1, duration: 0.1, ease: 'none' }, 0.9);
+
 
     // Background color / Global gradient fade-out (Philosophy -> Craft)
     tl.to('#global-gradient-bg-dark', { opacity: 0, ease: 'none', duration: 0.2 }, 0.1);

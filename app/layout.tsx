@@ -1,10 +1,15 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+// Apply the font properly so Next.js can self-host & inline it (non-blocking)
+const geist = Geist({
+  subsets: ["latin"],
+  display: "swap",          // Never block rendering — swap in font once ready
+  preload: true,            // Preload the woff2 file for LCP text
+  variable: "--font-geist",
+});
 
 export const metadata: Metadata = {
   title: 'Optika ',
@@ -36,7 +41,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <head>
+        {/* Preconnect to external domains used by the app — eliminates TCP handshake latency */}
+        <link rel="preconnect" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com" />
+        {/* Preload the local 3D model so it starts downloading before JS executes */}
+        <link
+          rel="preload"
+          href="/AkshtaS%20spetcs2.glb"
+          as="fetch"
+          crossOrigin="anonymous"
+        />
+      </head>
+      {/* Apply the geist font class to body so the font fetch is treated as non-render-blocking */}
+      <body className={`${geist.className} antialiased`} suppressHydrationWarning>
         {children}
         <Analytics />
       </body>

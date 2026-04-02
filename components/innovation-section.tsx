@@ -45,12 +45,12 @@ export function InnovationSection() {
 
           {/* Body */}
           <p
-            className="gs-scene-3-p gs-dynamic-text-light mb-10 font-sans  text-sm leading-relaxed"
+            className="gs-scene-3-p gs-dynamic-text-light mb-10 font-sans  text-sm leading-relaxed "
             style={{
               maxWidth: "40ch",
               color: "#9ca3af",
               lineHeight: 1.75,
-              textAlign: "left",
+              textAlign: "right",
             }}
           >
             Stand out in any crowd. Engineered for those who define the standard,
