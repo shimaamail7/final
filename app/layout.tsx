@@ -1,14 +1,25 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Geist, Inter, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-// Apply the font properly so Next.js can self-host & inline it (non-blocking)
+
 const geist = Geist({
   subsets: ["latin"],
-  display: "swap",          // Never block rendering — swap in font once ready
-  preload: true,            // Preload the woff2 file for LCP text
-  variable: "--font-geist",
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -53,10 +64,12 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      {/* Apply the geist font class to body so the font fetch is treated as non-render-blocking */}
-      <body className={`${geist.className} antialiased`} suppressHydrationWarning>
+      {/* Apply the font variables to the body so they can be accessed anywhere */}
+      <body className={`${inter.className} ${geist.className}  ${playfair.variable} antialiased`} suppressHydrationWarning>
+
         {children}
         <Analytics />
+
       </body>
     </html>
   )

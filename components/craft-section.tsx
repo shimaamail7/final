@@ -43,6 +43,16 @@ export function CraftSection() {
             Every curve is meticulously sculpted to fit the natural contours of your face.
           </p>
         </div>
+
+        {/* SCROLL NEXT indicator — bottom center */}
+        <div className="absolute bottom-5 left-1/2 left-translate-x-1/2">
+          <span
+            className="gs-scene-2-scroll gs-dynamic-text-light font-sans text-[10px] uppercase tracking-[0.25em]"
+            style={{ color: "#1a1a2e" }}
+          >
+            SCROLL NEXT
+          </span>
+        </div>
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 "use client"
 
-export function InnovationSection() {
+export function InnovationSection({ onComplete }: { onComplete?: () => void }) {
   return (
     <section
       id="innovation"
@@ -14,7 +14,7 @@ export function InnovationSection() {
         Layout: model occupies the left ~55%, text block is right-aligned to the right ~45%.
         On mobile: stacked, text at top.
       */}
-      <div className="relative  max-w-xl z-20 h-[95vh] md:min-h-auto ml-auto flex w-full flex-col items-center justify-between md:justify-center pt-[20vh] pb-10 md:px-3 px-10 md:w-1/2 md:items-end md:justify-center md:pt-0 md:pb-0 md:pr-16 lg:pr-24">
+      <div className="relative  max-w-xl z-40 h-[95vh] md:min-h-auto ml-auto flex w-full flex-col items-center justify-between md:justify-center pt-[20vh] pb-10 md:px-3 px-10 md:w-1/2 md:items-end md:justify-center md:pt-0 md:pb-0 md:pr-16 lg:pr-24">
         <div>
           <p
             className="gs-scene-3-sub gs-dynamic-text-light mb-6 font-sans text-xs font-medium uppercase self-start tracking-widest md:text-sm"
@@ -59,7 +59,7 @@ export function InnovationSection() {
 
           {/* CTA button — pill shaped, white bg, black text */}
           <button
-            className="gs-scene-3-btn group font-sans text-xs font-bold uppercase tracking-widest transition-transform duration-200 hover:scale-105 active:scale-95"
+            className="gs-scene-3-btn relative z-50 pointer-events-auto cursor-pointer group font-sans text-xs font-bold uppercase tracking-widest transition-transform duration-200 hover:scale-105 active:scale-95"
             style={{
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -70,8 +70,9 @@ export function InnovationSection() {
               cursor: "pointer",
             }}
             onClick={() => {
-              const el = document.getElementById("innovation")
-              el?.scrollIntoView({ behavior: "smooth" })
+              if (onComplete) {
+                onComplete()
+              }
             }}
           >
             Start Experience

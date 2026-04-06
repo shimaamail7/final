@@ -15,7 +15,7 @@ export function PhilosophySection() {
         Content panel — right half, z-20 so the 3D canvas (z-30) overlaps.
         Model occupies the left ~55% via 3D positioning.
       */}
-      <div className="relative z-20 ml-auto flex w-full max-w-sm flex-col items-center justify-start pt-[25vh] px-20 pb-10 mr-10
+      <div className="relative z-20 ml-auto flex w-full max-w-sm flex-col items-center justify-start pt-[25vh] px-8 pb-10 mr-10
       md:max-w-xl md:justify-center md:py-20 md:pt-20 md:px-12 lg:px-5">
 
         <p
@@ -64,8 +64,8 @@ export function PhilosophySection() {
 
       {/* SCROLL indicator — bottom center, just the word */}
       <div className="gs-scene-1-scroll absolute bottom-10 left-1/2 z-20 -translate-x-1/2" style={{ opacity: 0 }}>
-        <span className="gs-dynamic-text-light font-sans text-[10px] uppercase tracking-[0.25em] text-white/50">
-          SCROLL
+        <span className="gs-dynamic-text-light font-sans text-[10px] uppercase tracking-[0.25em] text-white">
+          SCROLL NEXT
         </span>
       </div>
     </section >
