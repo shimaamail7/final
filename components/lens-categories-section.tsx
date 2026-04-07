@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const lensCategories = [
   {
     id: "acutus",
-    image: "/Acutus.jpg",
+    image: "/acutus.jpg",
     imageAlt: "Happy couple wearing stylish sunglasses outdoors",
     logoText: "ACUTUS",
     logoSubscript: "®",

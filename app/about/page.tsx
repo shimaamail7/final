@@ -73,7 +73,7 @@ export default function AboutPage() {
             <section className="relative h-screen w-full overflow-hidden">
                 {/* Background Image */}
                 <Image
-                    src="/images/about-bg.jpg"
+                    src="/about-hero.jpg"
                     alt="Modern office interior with natural lighting"
                     fill
                     className="object-cover object-center"
@@ -83,79 +83,7 @@ export default function AboutPage() {
                 {/* Dark Overlay */}
                 <div className="absolute inset-0 bg-black/50" />
 
-                {/* Navigation */}
-                <header className="absolute top-0 left-0 right-0 z-50">
-                    <nav className="mx-auto flex h-16 max-w-[1920px] items-center justify-between px-6 sm:h-20 sm:px-10 md:px-12 lg:px-16">
-                        {/* Logo */}
-                        <Link href="/" className="text-base font-bold tracking-tight text-white sm:text-lg">
-                            Optika
-                        </Link>
 
-                        {/* Desktop Navigation - Center */}
-                        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex lg:gap-10">
-                            {navLinks.map((link) => (
-                                <li key={link.href}>
-                                    <Link
-                                        href={link.href}
-                                        className="text-sm text-white transition-colors hover:text-white/70"
-                                    >
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-
-                        {/* Partners Link - Desktop */}
-                        <Link
-                            href="/partners"
-                            className="hidden text-sm text-white transition-colors hover:text-white/70 md:block"
-                        >
-                            / For Parners
-                        </Link>
-
-                        {/* Mobile Menu Button */}
-                        <button
-                            type="button"
-                            className="inline-flex items-center justify-center p-2 text-white md:hidden"
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            aria-expanded={mobileMenuOpen}
-                            aria-label="Toggle navigation menu"
-                        >
-                            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                        </button>
-                    </nav>
-
-                    {/* Mobile Menu */}
-                    <div
-                        className={`transform overflow-hidden transition-all duration-300 md:hidden ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                            }`}
-                    >
-                        <div className="bg-black/80 px-6 py-4 backdrop-blur-sm">
-                            <ul className="flex flex-col gap-4">
-                                {navLinks.map((link) => (
-                                    <li key={link.href}>
-                                        <Link
-                                            href={link.href}
-                                            className="block text-base text-white"
-                                            onClick={() => setMobileMenuOpen(false)}
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                                <li className="border-t border-white/20 pt-4">
-                                    <Link
-                                        href="/partners"
-                                        className="block text-base text-white"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        / For Partners
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </header>
 
                 {/* Hero Content */}
                 <div className="relative z-10 flex h-full items-center">
@@ -196,82 +124,6 @@ export default function AboutPage() {
             {/* ═══════════════════════════════════════════════════════════════════════════
           SECTION 2: BEHIND OPTIKA
       ═══════════════════════════════════════════════════════════════════════════ */}
-            <section className="w-full bg-white py-14 sm:py-16 md:py-20 lg:py-24">
-                {/* 120px horizontal padding on desktop, responsive on smaller screens */}
-                <div className="px-6 sm:px-10 md:px-16 lg:px-[120px]">
-
-                    {/* Section Header with Line */}
-                    <div className="mb-8 flex items-center gap-6 sm:mb-10 lg:mb-12">
-                        <h2 className="shrink-0 text-[20px] font-bold uppercase tracking-tight text-black sm:text-[24px] md:text-[28px] lg:text-[32px]">
-                            BEHIND OPTIKA
-                        </h2>
-                        <div className="h-px flex-1 bg-gray-300" />
-                    </div>
-
-                    {/* Two Row Grid — no outer padding, cells flush to the container */}
-                    <div className="flex flex-col gap-[2px]">
-
-                        {/* ── Row 1: Text Left · Image Right ── */}
-                        <div className="grid grid-cols-1 gap-[2px] md:grid-cols-2">
-
-                            {/* Text cell */}
-                            <div className="flex items-start bg-[#f2f2f2] px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
-                                {/* Left black accent bar */}
-                                <div className="mr-5 mt-0.5 w-px shrink-0 self-stretch bg-black" />
-                                <div className="flex-1">
-                                    <p className="text-[10px] uppercase tracking-[0.18em] text-gray-400 sm:text-[10px]">About</p>
-                                    <p className="mb-5 text-[10px] uppercase tracking-[0.18em] text-gray-400 sm:mb-6 sm:text-[10px]">Us</p>
-                                    <p className="text-[13px] leading-[1.75] text-black sm:text-[13px] md:text-[13px]">
-                                        Optika is a Global Eyewear Solutions Provider and Distributor of Exclusive and advanced Digital Lenses, Eyecare products, and Premium solutions.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Image cell — image fills the entire cell with no padding */}
-                            <div className="relative min-h-[280px] overflow-hidden bg-[#f2f2f2] sm:min-h-[320px] md:min-h-0">
-                                <Image
-                                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/7d95638d9b9d0bb58fba7a78008c004cc17acd5e-VJmVVr29DbJWlkUHetJZtlF4q3MiJv.jpg"
-                                    alt="Three models wearing stylish sunglasses looking down at camera"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                        </div>
-
-                        {/* ── Row 2: Image Left · Text Right ── */}
-                        <div className="grid grid-cols-1 gap-[2px] md:grid-cols-2">
-
-                            {/* Image cell */}
-                            <div className="relative order-2 min-h-[280px] overflow-hidden bg-[#f2f2f2] sm:min-h-[320px] md:order-1 md:min-h-0">
-                                <Image
-                                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0d4b65bfe8a57d839d913547211dbe7816861d75-Ne0sPy2kLZycEoqu9KUBmpHHoKAWu6.jpg"
-                                    alt="Man and woman wearing sunglasses standing back to back"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-
-                            {/* Text cell */}
-                            <div className="flex items-start bg-[#f2f2f2] px-6 py-8 sm:px-8 sm:py-10 md:order-2 md:px-10 md:py-12">
-                                {/* Left black accent bar */}
-                                <div className="mr-5 mt-0.5 w-px shrink-0 self-stretch bg-black" />
-                                <div className="flex-1">
-                                    <p className="text-[10px] uppercase tracking-[0.18em] text-gray-400 sm:text-[10px]">Ophthalmic</p>
-                                    <p className="text-[10px] uppercase tracking-[0.18em] text-gray-400 sm:text-[10px]">Technology</p>
-                                    <p className="mb-5 text-[10px] uppercase tracking-[0.18em] text-gray-400 sm:mb-6 sm:text-[10px]">Provider</p>
-                                    <p className="mb-4 text-[13px] leading-[1.75] text-black sm:text-[13px] md:text-[13px]">
-                                        Driven by ambition, innovation, Optika supplies eyewear to professionals, hospitals, and users.
-                                    </p>
-                                    <p className="text-[13px] leading-[1.75] text-black sm:text-[13px] md:text-[13px]">
-                                        We deliver variety of high-end lenses which are manufactured in the Czech Republic and tested according to industry best standards with strict quality controls.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
 
             {/* ═══════════════════════════════════════════════════════════════════════════
           SECTION 3: GENUINE ASPIRATION BANNER

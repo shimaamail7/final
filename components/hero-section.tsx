@@ -34,7 +34,7 @@ export function HeroSection({
   ctaHref = "#about"
 }: HeroSectionProps) {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-r from-white via-white to-gray-200">
+    <section className=" relative min-h-screen w-full overflow-hidden" style={{ background: ' transparent' }}>
 
       {/* Hero Image - Positioned absolutely to start under the 64px top navigation */}
       <div className="absolute top-0 min-h-screen inset-x-0 bottom-0">
